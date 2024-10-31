@@ -1,0 +1,264 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 10px;
+        justify-content: center; /* Align cards in the center */
+      }
+
+      .pokemon_card {
+        border: 1px solid gray;
+        padding: 16px; /* Increase padding for a more balanced look */
+        width: 20%; /* Width for each card */
+        min-height: 200px; /* Set a larger minimum height for card content */
+        background-color: lightblue; /* Background color for the card */
+        border-radius: 10px; /* Rounds the edges of the card */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adds a soft shadow */
+        display: flex;
+        flex-direction: column; /* Stack content vertically */
+        justify-content: space-between; /* Spread content evenly */
+      }
+
+      .pokemon-name {
+        font-size: 1.5em;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 10px; /* Add space below the name */
+      }
+
+      .pokemon-type {
+        display: inline-block;
+        padding: 3px 10px; /* Adjust padding for a better badge look */
+        border-radius: 15px; /* Round the edges of the type badge */
+        margin: 5px 3px; /* Adjust margin for more consistent spacing */
+        background-color: lightgray; /* Default background color for the badge */
+        font-size: 0.9em; /* Adjust font size for the badge */
+        color: white; /* White text for better readability */
+        text-align: center;
+      }
+
+      /* Example specific types (customize as needed) */
+      .pokemon-type.grass {
+        background-color: #78c850;
+      }
+      .pokemon-type.fire {
+        background-color: #f08030;
+      }
+      .pokemon-type.water {
+        background-color: #6890f0;
+      }
+      .pokemon-type.poison {
+        background-color: #a040a0;
+      }
+      .pokemon-type.flying {
+        background-color: #a890f0;
+      }
+
+      /* Pokémon moves */
+      .pokemon-moves {
+        list-style-type: none; /* Removes bullets */
+        padding-left: 0; /* Remove default list padding */
+        margin-top: 10px;
+      }
+
+      .pokemon-moves li {
+        margin-bottom: 5px; /* Space between moves */
+      }
+
+      /* Hover effect for cards */
+      .pokemon_card:hover {
+        transform: scale(1.05); /* Slightly enlarges the card */
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Darken the shadow on hover */
+      }
+
+      /* Responsive design */
+      @media only screen and (max-width: 768px) {
+        .pokemon_card {
+          width: 45%; /* Adjust width for smaller screens */
+        }
+      }
+
+      @media only screen and (max-width: 480px) {
+        .pokemon_card {
+          width: 100%; /* Full width on very small screens */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const pokemonData = [
+        {
+          id: 1,
+          name: "Bulbasaur",
+          type: ["Grass", "Poison"],
+          moves: ["Tackle", "Growl", "Leech Seed", "Vine Whip"],
+          nature: "Timid",
+        },
+        {
+          id: 2,
+          name: "Ivysaur",
+          type: ["Grass", "Poison"],
+          moves: ["Razor Leaf", "Growl", "Leech Seed", "Vine Whip"],
+          nature: "Bold",
+        },
+        {
+          id: 3,
+          name: "Venusaur",
+          type: ["Grass", "Poison"],
+          moves: ["Solar Beam", "Sludge Bomb", "Razor Leaf", "Leech Seed"],
+          nature: "Modest",
+        },
+        {
+          id: 4,
+          name: "Charmander",
+          type: ["Fire"],
+          moves: ["Scratch", "Ember", "Growl", "Flamethrower"],
+          nature: "Brave",
+        },
+        {
+          id: 5,
+          name: "Charmeleon",
+          type: ["Fire"],
+          moves: ["Ember", "Flamethrower", "Slash", "Dragon Claw"],
+          nature: "Lonely",
+        },
+        {
+          id: 6,
+          name: "Charizard",
+          type: ["Fire", "Flying"],
+          moves: ["Fire Blast", "Flamethrower", "Fly", "Dragon Claw"],
+          nature: "Adamant",
+        },
+        {
+          id: 7,
+          name: "Squirtle",
+          type: ["Water"],
+          moves: ["Tackle", "Water Gun", "Bubble", "Withdraw"],
+          nature: "Calm",
+        },
+        {
+          id: 8,
+          name: "Wartortle",
+          type: ["Water"],
+          moves: ["Water Gun", "Bubble Beam", "Withdraw", "Bite"],
+          nature: "Hardy",
+        },
+        {
+          id: 9,
+          name: "Blastoise",
+          type: ["Water"],
+          moves: ["Hydro Pump", "Surf", "Skull Bash", "Ice Beam"],
+          nature: "Impish",
+        },
+        {
+          id: 10,
+          name: "Caterpie",
+          type: ["Bug"],
+          moves: ["Tackle", "String Shot"],
+          nature: "Jolly",
+        },
+        {
+          id: 11,
+          name: "Metapod",
+          type: ["Bug"],
+          moves: ["Harden"],
+          nature: "Relaxed",
+        },
+        {
+          id: 12,
+          name: "Butterfree",
+          type: ["Bug", "Flying"],
+          moves: ["Confusion", "Gust", "Sleep Powder", "Psybeam"],
+          nature: "Gentle",
+        },
+        {
+          id: 13,
+          name: "Weedle",
+          type: ["Bug", "Poison"],
+          moves: ["Poison Sting", "String Shot"],
+          nature: "Naive",
+        },
+        {
+          id: 14,
+          name: "Kakuna",
+          type: ["Bug", "Poison"],
+          moves: ["Harden"],
+          nature: "Serious",
+        },
+        {
+          id: 15,
+          name: "Beedrill",
+          type: ["Bug", "Poison"],
+          moves: ["Twineedle", "Rage", "Poison Jab", "Fury Attack"],
+          nature: "Hasty",
+        },
+        {
+          id: 16,
+          name: "Pidgey",
+          type: ["Normal", "Flying"],
+          moves: ["Tackle", "Gust", "Sand Attack", "Quick Attack"],
+          nature: "Jolly",
+        },
+        {
+          id: 17,
+          name: "Pidgeotto",
+          type: ["Normal", "Flying"],
+          moves: ["Gust", "Quick Attack", "Wing Attack", "Whirlwind"],
+          nature: "Brave",
+        },
+        {
+          id: 18,
+          name: "Pidgeot",
+          type: ["Normal", "Flying"],
+          moves: ["Hurricane", "Wing Attack", "Quick Attack", "Air Slash"],
+          nature: "Adamant",
+        },
+        {
+          id: 19,
+          name: "Rattata",
+          type: ["Normal"],
+          moves: ["Tackle", "Bite", "Quick Attack", "Hyper Fang"],
+          nature: "Timid",
+        },
+        {
+          id: 20,
+          name: "Raticate",
+          type: ["Normal"],
+          moves: ["Hyper Fang", "Bite", "Quick Attack", "Swords Dance"],
+          nature: "Lonely",
+        },
+        {
+          id: 21,
+          name: "Spearow",
+          type: ["Normal", "Flying"],
+          moves: ["Peck", "Leer", "Fury Attack", "Aerial Ace"],
+          nature: "Rash",
+        },
+        {
+          id: 22,
+          name: "Fearow",
+          type: ["Normal", "Flying"],
+          moves: ["Drill Peck", "Fury Attack", "Aerial Ace", "Pursuit"],
+          nature: "Naughty",
+        },
+        {
+          id: 23,
+          name: "Ekans",
+          type: ["Poison"],
+          moves: ["Wrap", "Poison Sting", "Bite", "Glare"],
+          nature: "Bold",
+        },
+      ];
+
+      // display all pokemon on page
+      const container = document.querySelector;
+    </script>
+  </body>
+</html>
